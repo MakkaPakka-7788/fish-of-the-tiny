@@ -1,3 +1,4 @@
+```html
 <html lang="en"><head>
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,7 @@
         <!-- <script src="/poki-sdk.js"></script> -->
 
         <!-- Set the title bar of the page -->
-        <title>Tiny Fishing</title>
+        <title>flashcard.com</title>
         <meta name="description" content="Tiny Fishing is a fishing game where you have to upgrade your gear to get bigger fish.">
         <meta name="robots" content="noindex,nofollow" />
     <script type="text/javascript" src="/js/main.js"></script>
@@ -61,7 +62,7 @@
               -webkit-user-select:none;
                /*
                  Introduced in IE 10.
-                 See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+                 See http://ie.microsoft.com/testdrive/msUserSelect/
                */
               -ms-user-select:    none;
               user-select:        none;
@@ -112,7 +113,7 @@
 
         <script>
           if(!Number.isNaN && window.isNaN) Number.isNaN = isNaN;
-          //if (typeof Math.sign === 'undefined') { Math.sign = function (x) { return x > 0 ? 1 : x < 0 ? -1 : x; } }
+          //if (typeof Math.sign === 'undefined') { Math.sign = function (x) { return x > 0 ? 1 : x < 0 ? -1 : 0; } }
         </script>
 
     <style>
@@ -290,34 +291,50 @@
 
 .pokiSdkProgressBar.pokiSdkHidden, .pokiSdkPauseButton.pokiSdkHidden, .pokiSdkStartAdButton.pokiSdkHidden {
 	display: none;
-	pointer-events: none;
 }
 </style></head>
 
     <body style="overflow: hidden;">
-
-          
-            
-            
 
         <div class="gm4html5_div_class" id="gm4html5_div_id" style="padding-top: 20px; position: absolute; height: 488px;">
             <canvas id="canvas" width="640" height="360" style="position: absolute; left: 0px; top: 0px; width: 640px; height: 360px;">
                      <p>Your browser doesn't support HTML5 canvas.</p>
             </canvas>
         </div>
+
         <!-- Run the game code -->
         <script type="text/javascript" src="html5game/TinyFishing.js"></script>
 
-
-
-
         <script>
-
-      if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = {};
+          if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = {};
           GameMaker_Init();
-       if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = null;
-
+          if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = null;
         </script>
 
+        <script>
+        let rCount = 0;
+        let rTimer = null;
 
-    </body></html>
+        document.addEventListener("keydown", function(e) {
+            if (e.key.toLowerCase() !== "r" || e.repeat) {
+                return;
+            }
+
+            rCount++;
+
+            clearTimeout(rTimer);
+
+            rTimer = setTimeout(function() {
+                rCount = 0;
+            }, 700);
+
+            if (rCount === 3) {
+                rCount = 0;
+                window.location.href = "https://makkapakka-7788.github.io/MAKKA-portfolio/index.html?games=true";
+            }
+        });
+        </script>
+
+    </body>
+</html>
+```
