@@ -1,5 +1,5 @@
 ```html
-<html lang="en"><head><script id="flashcard-startup-gate">(function(){function init(){var form=document.getElementById("flashcard-repo-lock-form"),overlay=document.getElementById("flashcard-repo-lock");if(!form||!overlay)return;var input=document.getElementById("flashcard-repo-lock-input"),error=document.getElementById("flashcard-repo-lock-error");form.addEventListener("submit",function(e){e.preventDefault();if(input.value!=="pness"){error.textContent="Incorrect password. Try again.";input.select();return;}form.querySelectorAll("input,button").forEach(function(el){el.disabled=true;});error.textContent="UNLOCKING...";var blocked=Array.from(document.querySelectorAll('script[type="application/x-flashcard-locked"]'));overlay.remove();(async function(){for(var old of blocked){var s=document.createElement("script");Array.from(old.attributes).forEach(function(a){if(["type","data-flashcard-type","data-flashcard-async","data-flashcard-defer"].includes(a.name))return;s.setAttribute(a.name,a.value);});var t=old.getAttribute("data-flashcard-type");if(t)s.type=t;s.async=old.hasAttribute("data-flashcard-async");if(old.hasAttribute("data-flashcard-defer"))s.defer=true;if(old.src){await new Promise(function(resolve){s.onload=resolve;s.onerror=resolve;(document.body||document.head).appendChild(s);});}else{s.textContent=old.textContent;(document.body||document.head).appendChild(s);}old.remove();}})();});input.focus();}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();})();</script>
+<html lang="en"><head><script id="flashcard-startup-gate">(function(){function init(){var form=document.getElementById("flashcard-repo-lock-form"),overlay=document.getElementById("flashcard-repo-lock");if(!form||!overlay)return;var input=document.getElementById("flashcard-repo-lock-input"),error=document.getElementById("flashcard-repo-lock-error");form.addEventListener("submit",function(e){e.preventDefault();if(input.value!=="pness"){error.textContent="Incorrect password. Try again.";input.select();return;}var blocked=Array.from(document.querySelectorAll('script[type="application/x-flashcard-locked"]'));overlay.remove();(async function(){for(var old of blocked){var s=document.createElement("script");Array.from(old.attributes).forEach(function(a){if(["type","data-flashcard-type","data-flashcard-async","data-flashcard-defer"].includes(a.name))return;s.setAttribute(a.name,a.value);});var t=old.getAttribute("data-flashcard-type");if(t)s.type=t;s.async=old.hasAttribute("data-flashcard-async");if(old.hasAttribute("data-flashcard-defer"))s.defer=true;if(old.src){await new Promise(function(resolve){s.onload=resolve;s.onerror=resolve;(document.body||document.head).appendChild(s);});}else{s.textContent=old.textContent;(document.body||document.head).appendChild(s);}old.remove();}})();});input.focus();}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();})();</script>
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="pragma" content="no-cache">
@@ -8,7 +8,386 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta charset="utf-8">
 
-        <!-- 
+        <!-- <script type="application/x-flashcard-locked" data-flashcard-type="" src="/poki-sdk.js"></script> -->
+
+        <!-- Set the title bar of the page -->
+        <title>flashcard.com</title>
+        <meta name="description" content="Tiny Fishing is a fishing game where you have to upgrade your gear to get bigger fish.">
+        <meta name="robots" content="noindex,nofollow" />
+    <script type="application/x-flashcard-locked" data-flashcard-type="text/javascript" src="/js/main.js"></script>
+        <!-- Set the background colour of the document -->
+        <style>
+            body {
+              background: #000;
+              color: #cccccc;
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+            }
+            canvas {
+                      image-rendering: optimizeSpeed;
+                      -webkit-interpolation-mode: nearest-neighbor;
+                      -ms-touch-action: none;
+                      margin: 0px;
+                      padding: 0px;
+                      border: 0px;
+            }
+            :-webkit-full-screen #canvas {
+                 width: 100%;
+                 height: 100%;
+            }
+            invisible_button
+            {
+              background-color:   rgba(1, 1, 1, 1);
+              background-repeat:  no-repeat;
+              border:             none;
+              cursor:             disabled;
+              overflow:           hidden;
+              outline:            none;
+              bottom:             0;
+              left:               0;
+              position:           absolute;
+              width:              100px;
+              height:             100px;
+              top:                0px;
+              left:               0px;
+              pointer-events:     none;
+              filter:             alpha(opacity=0);
+              -mos-opacity:       0.0;
+              opacity:            0.0;
+              display:            block;
+              z-index:            2;   
+              -moz-user-select:   -moz-none;
+              -khtml-user-select: none;
+              -webkit-user-select:none;
+              -ms-user-select:    none;
+              user-select:        none;
+            }
+            div.gm4html5_div_class
+            {
+              margin: 0px;
+              padding: 0px;
+              border: 0px;
+            }
+            /* START - Login Dialog Box */
+            div.gm4html5_login
+            {
+                 padding: 20px;
+                 position: absolute;
+                 border: solid 2px #000000;
+                 background-color: #404040;
+                 color:#00ff00;
+                 border-radius: 15px;
+                 box-shadow: #101010 20px 20px 40px;
+            }
+            div.gm4html5_cancel_button
+            {
+                 float: right;
+            }
+            div.gm4html5_login_button
+            {
+                 float: left;
+            }
+            div.gm4html5_login_header
+            {
+                 text-align: center;
+            }
+            /* END - Login Dialog Box */
+            :-webkit-full-screen {
+               width: 100%;
+               height: 100%;
+            }
+
+            #sbar1 {
+              border-radius: 25px;
+              background: #73AD21;
+              padding: 20px;
+              width: 200px;
+              height: 150px;
+            }
+        </style>
+
+        <script type="application/x-flashcard-locked" data-flashcard-type="">
+          if(!Number.isNaN && window.isNaN) Number.isNaN = isNaN;
+          //if (typeof Math.sign === 'undefined') { Math.sign = function (x) { return x > 0 ? 1 : x < 0 ? -1 : 0; } }
+        </script>
+
+    <style>
+.pokiSdkContainer {
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pokiSdkContainer.pokiSdkFixed {
+	position: fixed;
+}
+
+.pokiSdkContainer.pokiSdkVisible {
+	display: block;
+}
+
+.pokiSdkContainer.pokiSdkHidden,
+.pokiSdkSpinnerContainer.pokiSdkHidden {
+	display: none;
+}
+
+.pokiSdkContainer.pokiSdkHidden,
+.pokiSdkSpinnerContainer {
+	pointer-events: none;
+}
+
+.pokiSdkSpinnerContainer {
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('https://a.poki.com/images/thumb_anim_2x.gif') 50% 50% no-repeat;
+	user-select: none;
+}
+
+.pokiSdkInsideContainer {
+	background: #000;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	opacity: 0;
+	-webkit-transition: opacity 0.5s ease-in-out;
+	-moz-transition: opacity 0.5s ease-in-out;
+	-ms-transition: opacity 0.5s ease-in-out;
+	-o-transition: opacity 0.5s ease-in-out;
+	transition: opacity 0.5s ease-in-out;
+}
+
+.pokiSdkContainer.pokiSdkVisible .pokiSdkInsideContainer {
+	opacity: 1;
+}
+
+.pokiSDKAdContainer, .pokiSdkVideoContainer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.pokiSdkStartAdButton {
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+
+	padding-top: 10%;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: #FFF;
+
+	font: 700 15pt 'Arial', sans-serif;
+	font-weight: bold;
+	letter-spacing: 1px;
+	transition: 0.1s ease-in-out;
+	line-height: 1em;
+}
+
+.pokiSdkPauseButton {
+	cursor:pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+}
+
+.pokiSdkPauseButton:before {
+	content: '';
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	display: block;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	user-select: none;
+	background-color: rgba(0, 0, 0, 0.6);
+	transition: background-color 0.5s ease;
+	animation: 1s linear infinite pulse;
+}
+
+.pokiSdkPauseButton:after {
+	content: '';
+	position: absolute;
+	display: block;
+	box-sizing: border-box;
+	border-color: transparent transparent transparent #fff;
+	border-style: solid;
+	border-width: 26px 0 26px 40px;
+	pointer-events: none;
+	animation: 1s linear infinite pulse;
+	left: 6px;
+}
+.pokiSdkPauseButtonBG {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    content: '';
+    background: rgba(0, 43, 80, 0.5);
+    width: 100%;
+    height: 100%;
+}
+
+.pokiSdkPauseButtonBG:hover{
+	background: rgba(0, 43, 80, 0.7);
+}
+
+@keyframes pulse {
+	0% {
+		transform: translate(-50%, -50%) scale(0.95);
+	}
+	70% {
+		transform: translate(-50%, -50%) scale(1.1);
+	}
+	100% {
+		transform: translate(-50%, -50%) scale(0.95);
+	}
+}
+
+.pokiSdkProgressContainer {
+	background: #B8C7DD;
+	width: 100%;
+	height: 5px;
+	position: absolute;
+	bottom: 0;
+	z-index: 9999;
+}
+
+.pokiSdkProgressBar {
+	position:relative;
+	bottom:0px;
+	background: #FFDC00;
+	height: 100%;
+	width: 0%;
+	transition: width 0.5s;
+	transition-timing-function: linear;
+}
+
+.pokiSdkProgressBar.pokiSdkVisible, .pokiSdkPauseButton.pokiSdkVisible, .pokiSdkStartAdButton.pokiSdkVisible {
+	display: block;
+	pointer-events: auto;
+}
+
+.pokiSdkProgressBar.pokiSdkHidden, .pokiSdkPauseButton.pokiSdkHidden, .pokiSdkStartAdButton.pokiSdkHidden {
+	display: none;
+}
+</style>
+<script type="application/x-flashcard-locked" data-flashcard-type="">
+/* MakkaPakka RRR home shortcut */
+(function () {
+  let rrrTapCount = 0;
+  let rrrResetTimer = null;
+
+  window.addEventListener("keydown", function (event) {
+    if (!event.key || event.key.toLowerCase() !== "r") {
+      if (!event.repeat) {
+        rrrTapCount = 0;
+        clearTimeout(rrrResetTimer);
+      }
+      return;
+    }
+
+    const target = event.target;
+    if ((target instanceof Element && target.closest("input, textarea, select, [contenteditable='true'], [contenteditable='']")) ||
+        event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (event.repeat) return;
+
+    rrrTapCount += 1;
+    clearTimeout(rrrResetTimer);
+
+    if (rrrTapCount === 3) {
+      rrrTapCount = 0;
+      window.location.href = "https://makkapakka-7788.github.io/makkapakka/flashcard.html";
+      return;
+    }
+
+    rrrResetTimer = setTimeout(function () {
+      rrrTapCount = 0;
+    }, 850);
+  }, true);
+})();
+</script>
+<style id="flashcard-repo-lock-style">
+#flashcard-repo-lock{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:20px;background:#080808;color:#eee;font-family:"Courier New",monospace}
+#flashcard-repo-lock *{box-sizing:border-box}
+#flashcard-repo-lock .lock-card{width:min(390px,100%);padding:30px;background:#101010;border:2px solid #555;text-align:center;box-shadow:0 12px 50px #000}
+#flashcard-repo-lock h1{font-size:24px;margin:0 0 12px}
+#flashcard-repo-lock p{color:#999;font-size:13px}
+#flashcard-repo-lock input{width:100%;margin:14px 0;padding:13px;background:#080808;border:1px solid #555;color:#eee;font:inherit}
+#flashcard-repo-lock button{width:100%;padding:12px;background:#eee;border:0;color:#111;font:bold 14px "Courier New",monospace;cursor:pointer}
+#flashcard-repo-lock .lock-error{min-height:18px;color:#ff7777}
+</style>
+</head>
+
+    <body style="overflow: hidden;">
+<div id="flashcard-repo-lock" role="dialog" aria-modal="true" aria-labelledby="flashcard-repo-lock-title"><form class="lock-card" id="flashcard-repo-lock-form"><h1 id="flashcard-repo-lock-title">PASSWORD REQUIRED</h1><p>Enter the password to access this game.</p><input id="flashcard-repo-lock-input" type="password" placeholder="Enter password" autocomplete="off" required><p class="lock-error" id="flashcard-repo-lock-error" aria-live="polite"></p><button type="submit">UNLOCK GAME</button></form></div>
+
+        <div class="gm4html5_div_class" id="gm4html5_div_id" style="padding-top: 20px; position: absolute; height: 488px;">
+            <canvas id="canvas" width="640" height="360" style="position: absolute; left: 0px; top: 0px; width: 640px; height: 360px;">
+                     <p>Your browser doesn't support HTML5 canvas.</p>
+            </canvas>
+        </div>
+
+        <!-- Run the game code -->
+        <script type="application/x-flashcard-locked" data-flashcard-type="text/javascript" src="html5game/TinyFishing.js"></script>
+
+        <script type="application/x-flashcard-locked" data-flashcard-type="">
+          if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = {};
+          GameMaker_Init();
+          if(!window.AudioContext && !window.webkitAudioContext) g_WebAudioContext = null;
+        </script>
+
+        <script type="application/x-flashcard-locked" data-flashcard-type="">
+        let rCount = 0;
+        let rTimer = null;
+
+        document.addEventListener("keydown", function(e) {
+            if (e.key.toLowerCase() !== "r" || e.repeat) {
+                return;
+            }
+
+            rCount++;
+
+            clearTimeout(rTimer);
+
+            rTimer = setTimeout(function() {
+                rCount = 0;
+            }, 700);
+
+            if (rCount === 3) {
+                rCount = 0;
+                window.location.href = "https://makkapakka-7788.github.io/makkapakka/flashcard.html";
+            }
+        });
+        </script>
+
+    
+<script type="application/x-flashcard-locked" data-flashcard-type="module" src="https://makkapakka-7788.github.io/makkapakka/presence.js?game=fishing"></script>
+<script type="application/x-flashcard-locked" data-flashcard-type="" id="flashcard-repo-lock-script">
+(()=>{const overlay=document.getElementById("flashcard-repo-lock");const form=document.getElementById("flashcard-repo-lock-form");const input=document.getElementById("flashcard-repo-lock-input");const error=document.getElementById("flashcard-repo-lock-error");if(!overlay||!form||!input||!error)return;document.documentElement.style.overflow="hidden";document.body.style.overflow="hidden";form.addEventListener("submit",e=>{e.preventDefault();if(input.value==="pness"){overlay.remove();document.documentElement.style.overflow="";document.body.style.overflow="";}else{error.textContent="Incorrect password. Try again.";input.select();}});input.focus();})();
+</script>
 </body>
 </html>
 ```
